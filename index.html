@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101b35">
+<title>CÅŇÆL MUSIC</title>
+
+<style>
+:root{
+    --bleu:#101b35;
+    --bleu2:#173f8a;
+    --jaune:#ffc928;
+    --fond:#f2f4f8;
+    --blanc:#fff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:var(--fond);
+    color:#172033;
+    padding-bottom:75px;
+}
+
+button{
+    cursor:pointer;
+    border:none;
+}
+
+/* HEADER ANIMÉ */
+
+.header{
+    height:165px;
+    background:var(--bleu);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    isolation:isolate;
+}
+
+.header-background{
+    position:absolute;
+    inset:0;
+    display:flex;
+    width:max-content;
+    animation:defilement 40s linear infinite;
+    z-index:-2;
+}
+
+.header-background img{
+    width:190px;
+    height:165px;
+    object-fit:cover;
+    flex-shrink:0;
+}
+
+.header::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(5,15,35,.72);
+    z-index:-1;
+}
+
+.header-content{
+    text-align:center;
+    color:white;
+    position:relative;
+    z-index:2;
+}
+
+.header h1{
+    font-size:32px;
+    font-weight:900;
+    text-shadow:0 3px 10px black;
+}
+
+.header h1 span{
+    color:var(--jaune);
+}
+
+.header p{
+    font-size:11px;
+    letter-spacing:2px;
+    margin-top:8px;
+}
+
+@keyframes defilement{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+}
+
+/* RECHERCHE */
+
+.search-container{
+    padding:14px;
+    background:white;
+}
+
+.search-box{
+    display:flex;
+    align-items:center;
+    background:#eef0f5;
+    border-radius:30px;
+    padding:12px 16px;
+}
+
+.search-box input{
+    flex:1;
+    min-width:0;
+    background:transparent;
+    border:none;
+    outline:none;
+    font-size:14px;
+}
+
+.search-box button{
+    background:var(--bleu2);
+    color:white;
+    border-radius:20px;
+    padding:9px 15px;
+}
+
+/* ARTISTES */
+
+.section-title{
+    font-size:19px;
+    font-weight:bold;
+    padding:18px 15px 12px;
+}
+
+.artistes{
+    display:flex;
+    overflow-x:auto;
+    gap:17px;
+    padding:5px 15px 15px;
+    scrollbar-width:none;
+}
+
+.artistes::-webkit-scrollbar{
+    display:none;
+}
+
+.artiste{
+    min-width:78px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.artiste img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:50%;
+    border:3px solid var(--jaune);
+}
+
+.artiste p{
+    font-size:11px;
+    font-weight:bold;
+    margin-top:6px;
+}
+
+/* CATEGORIES */
+
+.categories{
+    display:flex;
+    overflow-x:auto;
+    gap:9px;
+    padding:10px 14px 16px;
+    scrollbar-width:none;
+}
+
+.categories button{
+    white-space:nowrap;
+    background:white;
+    color:var(--bleu);
+    border:1px solid #ddd;
+    padding:10px 17px;
+    border-radius:25px;
+    font-weight:bold;
+}
+
+.categories button.active{
+    background:var(--bleu2);
+    color:white;
+}
+
+/* CONTENUS */
+
+.media-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+    padding:0 12px 20px;
+}
+
+.media-card{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.thumbnail{
+    position:relative;
+    aspect-ratio:16/9;
+    background:#111;
+    cursor:pointer;
+}
+
+.thumbnail img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.play{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:45px;
+    height:45px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    background:rgba(0,0,0,.7);
+    border-radius:50%;
+    font-size:20px;
+}
+
+.badge{
+    position:absolute;
+    top:7px;
+    left:7px;
+    background:var(--jaune);
+    color:#111;
+    padding:5px 7px;
+    border-radius:4px;
+    font-size:10px;
+    font-weight:bold;
+}
+
+.duration{
+    position:absolute;
+    bottom:7px;
+    right:7px;
+    background:#000b;
+    color:white;
+    padding:4px 6px;
+    border-radius:4px;
+    font-size:10px;
+}
+
+.media-info{
+    padding:9px;
+}
+
+.media-info h3{
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.media-info p{
+    color:#777;
+    font-size:11px;
+}
+
+.actions{
+    display:flex;
+    gap:6px;
+    padding:0 9px 10px;
+}
+
+.actions button{
+    flex:1;
+    padding:8px 4px;
+    border-radius:7px;
+    background:#edf0f5;
+    color:var(--bleu);
+    font-weight:bold;
+    font-size:11px;
+}
+
+.actions .download{
+    background:var(--bleu2);
+    color:white;
+}
+
+/* PAGES */
+
+.page{
+    display:none;
+    padding:12px;
+}
+
+.back{
+    background:var(--bleu);
+    color:white;
+    padding:10px 15px;
+    border-radius:8px;
+    margin-bottom:15px;
+}
+
+.artist-profile{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:white;
+    padding:14px;
+    border-radius:12px;
+}
+
+.artist-profile img{
+    width:85px;
+    height:85px;
+    object-fit:cover;
+    border-radius:50%;
+}
+
+/* LECTEUR */
+
+#watchPage{
+    display:none;
+    padding:12px;
+}
+
+.player-video{
+    width:100%;
+    aspect-ratio:16/9;
+    background:black;
+    border-radius:10px;
+}
+
+.audio-cover{
+    width:200px;
+    height:200px;
+    object-fit:cover;
+    display:block;
+    margin:20px auto;
+    border-radius:15px;
+}
+
+.player-audio{
+    width:100%;
+    margin:15px 0;
+}
+
+.watch-info{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+.watch-info h2{
+    font-size:19px;
+    margin-bottom:7px;
+}
+
+.watch-info p{
+    color:#777;
+    font-size:13px;
+}
+
+.watch-actions{
+    display:flex;
+    gap:8px;
+    margin-top:15px;
+    flex-wrap:wrap;
+}
+
+.watch-actions button{
+    flex:1;
+    min-width:90px;
+    padding:12px 5px;
+    background:#edf0f5;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.watch-actions .primary{
+    background:var(--bleu2);
+    color:white;
+}
+
+/* MENU */
+
+.bottom-menu{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:68px;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    box-shadow:0 -2px 10px #0002;
+    z-index:100;
+}
+
+.bottom-menu button{
+    background:none;
+    color:#777;
+    font-size:11px;
+    font-weight:bold;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+}
+
+.bottom-menu span{
+    font-size:22px;
+}
+
+.bottom-menu button.active{
+    color:var(--bleu2);
+}
+
+.empty{
+    grid-column:1/-1;
+    text-align:center;
+    padding:35px;
+    color:#777;
+}
+
+@media(min-width:700px){
+    .media-grid{
+        grid-template-columns:repeat(3,minmax(0,1fr));
+        padding:0 25px;
+    }
+
+    .header{
+        height:200px;
+    }
+
+    .header-background img{
+        height:200px;
+        width:240px;
+    }
+
+    .header h1{
+        font-size:45px;
+    }
+}
+
+@media(min-width:1050px){
+    .media-grid{
+        grid-template-columns:repeat(4,minmax(0,1fr));
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header" id="mainHeader">
+
+    <div class="header-background" id="fondArtistes"></div>
+
+    <div class="header-content">
+        <h1>CÅŇÆLMUSIC <span>Local</span></h1>
+        <p>ÉCOUTE • REGARDE • TÉLÉCHARGE</p>
+    </div>
+
+</header>
+
+<div class="search-container" id="searchContainer">
+    <div class="search-box">
+        <input id="searchInput"
+               type="search"
+               placeholder="Rechercher musique, artiste, film..."
+               oninput="rechercher()">
+        <button onclick="rechercher()">⌕</button>
+    </div>
+</div>
+
+<main id="homePage">
+
+    <h2 class="section-title">Artistes populaires</h2>
+
+    <div class="artistes" id="artistesContainer"></div>
+
+    <h2 class="section-title">Découvrir</h2>
+
+    <div class="categories">
+        <button class="active" onclick="changerCategorie('Tout',this)">Tout</button>
+        <button onclick="changerCategorie('Musique',this)">Musiques</button>
+        <button onclick="changerCategorie('Clip vidéo',this)">Clips vidéo</button>
+        <button onclick="changerCategorie('Film',this)">Films</button>
+        <button onclick="changerCategorie('Série',this)">Séries</button>
+    </div>
+
+    <div class="media-grid" id="mediaGrid"></div>
+
+</main>
+
+<section class="page" id="artistPage">
+
+    <button class="back" onclick="retourAccueil()">← Retour</button>
+
+    <div id="artistProfile"></div>
+
+    <h2 class="section-title">Contenus de l'artiste</h2>
+
+    <div class="categories">
+        <button class="active" onclick="filtrerArtiste('Tout',this)">Tout</button>
+        <button onclick="filtrerArtiste('Musique',this)">Musiques</button>
+        <button onclick="filtrerArtiste('Clip vidéo',this)">Clips</button>
+    </div>
+
+    <div class="media-grid" id="artistMediaGrid"></div>
+
+</section>
+
+<section id="watchPage">
+
+    <button class="back" onclick="quitterLecture()">← Retour</button>
+
+    <video id="mainVideo"
+           class="player-video"
+           controls
+           playsinline
+           preload="metadata"
+           style="display:none"></video>
+
+    <div id="audioArea" style="display:none">
+
+        <img id="mainAudioCover" class="audio-cover" alt="Pochette">
+
+        <audio id="mainAudio"
+               class="player-audio"
+               controls
+               preload="metadata"></audio>
+
+    </div>
+
+    <div class="watch-info">
+
+        <h2 id="watchTitle"></h2>
+
+        <p id="watchArtist"></p>
+
+        <div class="watch-actions">
+
+            <button id="watchLike" onclick="aimerMediaEnLecture()">♡ J'aime</button>
+
+            <button class="primary" onclick="telechargerMediaEnLecture()">⬇ Télécharger</button>
+
+            <button onclick="partagerMedia()">↗ Partager</button>
+
+        </div>
+
+    </div>
+
+    <h2 class="section-title">À découvrir aussi</h2>
+
+    <div class="media-grid" id="recommendedList"></div>
+
+</section>
+
+<section class="page" id="favoritesPage">
+
+    <h2 class="section-title">♡ Mes favoris</h2>
+
+    <div class="media-grid" id="favoritesGrid"></div>
+
+</section>
+
+<section class="page" id="downloadsPage">
+
+    <h2 class="section-title">⬇ Mes téléchargements</h2>
+
+    <div class="media-grid" id="downloadsGrid"></div>
+
+</section>
+
+<nav class="bottom-menu" id="bottomMenu">
+
+    <button class="active" onclick="ouvrirPage('homePage',this)">
+        <span>⌂</span>Accueil
+    </button>
+
+    <button onclick="ouvrirPage('favoritesPage',this)">
+        <span>♡</span>Favoris
+    </button>
+
+    <button onclick="ouvrirPage('downloadsPage',this)">
+        <span>⬇</span>Téléchargements
+    </button>
+
+</nav>
+
+<script>
+
+/* ===================================
+   ARTISTES
+=================================== */
+
+const artistes=[
+
+{id:"Deve-Klh",nom:"Deve-Klh",image:"IMG-20260420-WA0031.jpg"},
+{id:"ferre",nom:"Ferre Gola",image:"artistes/ferre.jpg"},
+{id:"innoss",nom:"Innoss'B",image:"artistes/innoss.jpg"},
+{id:"koffi",nom:"Koffi Olomide",image:"artistes/koffi.jpg"},
+{id:"gaz",nom:"Gaz Mawete",image:"artistes/gaz.jpg"},
+{id:"heritier",nom:"Heritier Watanabe",image:"artistes/heritier.jpg"}
+
+];
+
+
+/* ===================================
+   CATALOGUE
+=================================== */
+
+const contenus=[
+
+{
+id:1,
+titre:"Billet-_-vert",
+artiste:"Deve-Klh_x_Macareux",
+artisteId:"Deve-Klh",
+type:"Musique",
+image:"IMG-20260420-WA0031.jpg",
+fichier:"MACAREUX_X_DEVE_KLH_-BILLET_VERTE_-_Prod_by_Ock_music.mp3",
+duree:"04:20",
+vues:12500
+},
+
+{
+id:2,
+titre:"Undlala",
+artiste:"Deve_Klh",
+artisteId:"Deve_Klh",
+type:"Clip vidéo",
+image:"Cardinal_X25_x_Ntombi_Fassie_x_uNkosazana__-_Udlala_Ngehliziyo_Yami__New_202.mp4",
+fichier:"Cardinal_X25_x_Ntombi_Fassie_x_uNkosazana__-_Udlala_Ngehliziyo_Yami__New_202.mp4",
+duree:"04:15",
+vues:120
+},
+
+
+{
+id:2,
+titre:"Dali",
+artiste:"Deve-Klh",
+artisteId:"Deve-Klh",
+type:"Clip vidéo",
+image:"Screenshot_20261104-202548_Gallery.jpg",
+fichier:"Blaq_Major_-_Dali__Ft._Bless_the_Gentlemen___Dj_Kap___Official_Music_Video_(.mp4",
+duree:"04:15",
+vues:25000
+},
+
+{
+id:3,
+titre:"Deuxième musique Fally",
+artiste:"Fally Ipupa",
+artisteId:"fally",
+type:"Musique",
+image:"pochettes/fally3.jpg",
+fichier:"musiques/fally2.mp3",
+duree:"03:50",
+vues:8400
+},
+
+{
+id:4,
+titre:"Exemple clip Ferre",
+artiste:"Ferre Gola",
+artisteId:"ferre",
+type:"Clip vidéo",
+image:"pochettes/ferre1.jpg",
+fichier:"clips/ferre1.mp4",
+duree:"05:10",
+vues:18000
+},
+
+{
+id:5,
+titre:"Musique Ferre Gola",
+artiste:"Ferre Gola",
+artisteId:"ferre",
+type:"Musique",
+image:"pochettes/ferre2.jpg",
+fichier:"musiques/ferre1.mp3",
+duree:"04:40",
+vues:9500
+},
+
+{
+id:6,
+titre:"Clip Innoss'B",
+artiste:"Innoss'B",
+artisteId:"innoss",
+type:"Clip vidéo",
+image:"pochettes/innoss1.jpg",
+fichier:"clips/innoss1.mp4",
+duree:"03:30",
+vues:15000
+},
+
+{
+id:7,
+titre:"Musique Koffi",
+artiste:"Koffi Olomide",
+artisteId:"koffi",
+type:"Musique",
+image:"pochettes/koffi1.jpg",
+fichier:"musiques/koffi1.mp3",
+duree:"05:00",
+vues:20000
+},
+
+{
+id:8,
+titre:"Exemple de film",
+artiste:"Cinéma",
+artisteId:"",
+type:"Film",
+image:"films/film1.jpg",
+fichier:"films/film1.mp4",
+duree:"01:30:00",
+vues:5000
+},
+
+{
+id:9,
+titre:"Exemple de série",
+artiste:"Série",
+artisteId:"",
+type:"Série",
+image:"series/serie1.jpg",
+fichier:"series/serie1.mp4",
+duree:"45 min",
+vues:3000
+}
+
+];
+
+
+/* ===================================
+   DONNÉES LOCALES
+=================================== */
+
+let favoris=JSON.parse(localStorage.getItem("cinemusic_favoris")||"[]");
+
+let telechargements=JSON.parse(localStorage.getItem("cinemusic_telechargements")||"[]");
+
+let compteursVues=JSON.parse(localStorage.getItem("cinemusic_vues")||"{}");
+
+let categorieActuelle="Tout";
+let artisteActuel=null;
+let mediaEnLecture=null;
+let pagePrecedente="homePage";
+
+contenus.forEach(media=>{
+    if(compteursVues[media.id]===undefined){
+        compteursVues[media.id]=Number(media.vues)||0;
+    }
+});
+
+function sauvegarderVues(){
+    localStorage.setItem("cinemusic_vues",JSON.stringify(compteursVues));
+}
+
+function formaterVues(nombre){
+    return Number(nombre||0).toLocaleString("fr-FR");
+}
+
+/* ===================================
+   FOND ANIMÉ
+=================================== */
+
+function afficherFondArtistes(){
+
+    const fond=document.getElementById("fondArtistes");
+
+    const photos=artistes.filter(a=>a.image).map(a=>a.image);
+
+    fond.innerHTML=[...photos,...photos].map(photo=>
+        `<img src="${photo}" alt="Artiste">`
+    ).join("");
+
+}
+
+/* ===================================
+   ARTISTES
+=================================== */
+
+function afficherArtistes(){
+
+    const container=document.getElementById("artistesContainer");
+
+    container.innerHTML="";
+
+    artistes.forEach(a=>{
+
+        container.innerHTML+=`
+        <div class="artiste" onclick="ouvrirArtiste('${a.id}')">
+            <img src="${a.image}" alt="${a.nom}">
+            <p>${a.nom}</p>
+        </div>`;
+
+    });
+
+}
+
+/* ===================================
+   CARTES MÉDIAS
+=================================== */
+
+function creerCarte(media){
+
+    return `
+    <article class="media-card">
+
+        <div class="thumbnail" onclick="ouvrirLecteur(${media.id})">
+
+            <img src="${media.image}" alt="${media.titre}">
+
+            <span class="badge">${media.type}</span>
+
+            <span class="play">▶</span>
+
+            <span class="duration">${media.duree}</span>
+
+        </div>
+
+        <div class="media-info">
+
+            <h3>${media.titre}</h3>
+
+            <p>${media.artiste} • ${formaterVues(compteursVues[media.id])} vues</p>
+
+        </div>
+
+        <div class="actions">
+
+            <button onclick="aimer(${media.id})">
+                ${favoris.includes(media.id)?"♥":"♡"} J'aime
+            </button>
+
+            <button class="download" onclick="telecharger(${media.id})">
+                ⬇
+            </button>
+
+        </div>
+
+    </article>`;
+
+}
+
+/* ===================================
+   AFFICHAGE
+=================================== */
+
+function afficherContenus(liste){
+
+    const grid=document.getElementById("mediaGrid");
+
+    grid.innerHTML="";
+
+    if(!liste.length){
+
+        grid.innerHTML=`<div class="empty">Aucun média trouvé.</div>`;
+
+        return;
+
+    }
+
+    liste.forEach(m=>grid.innerHTML+=creerCarte(m));
+
+}
+
+function actualiserAccueil(){
+
+    let liste=contenus;
+
+    if(categorieActuelle!=="Tout"){
+        liste=liste.filter(m=>m.type===categorieActuelle);
+    }
+
+    afficherContenus(liste);
+
+}
+
+/* ===================================
+   CATÉGORIES
+=================================== */
+
+function changerCategorie(categorie,button){
+
+    categorieActuelle=categorie;
+
+    document.querySelectorAll("#homePage .categories button").forEach(b=>{
+        b.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    actualiserAccueil();
+
+}
+
+/* ===================================
+   PAGE ARTISTE
+=================================== */
+
+function ouvrirArtiste(id){
+
+    artisteActuel=artistes.find(a=>a.id===id);
+
+    if(!artisteActuel)return;
+
+    cacherToutesLesPages();
+
+    document.getElementById("artistPage").style.display="block";
+
+    document.getElementById("artistProfile").innerHTML=`
+    <div class="artist-profile">
+        <img src="${artisteActuel.image}" alt="${artisteActuel.nom}">
+        <div>
+            <h2>${artisteActuel.nom}</h2>
+            <p>Contenus disponibles</p>
+        </div>
+    </div>`;
+
+    filtrerArtiste("Tout");
+
+    window.scrollTo(0,0);
+
+}
+
+function filtrerArtiste(type,button){
+
+    if(button){
+
+        button.parentElement.querySelectorAll("button").forEach(b=>b.classList.remove("active"));
+
+        button.classList.add("active");
+
+    }
+
+    let liste=contenus.filter(m=>m.artisteId===artisteActuel.id);
+
+    if(type!=="Tout"){
+        liste=liste.filter(m=>m.type===type);
+    }
+
+    const grid=document.getElementById("artistMediaGrid");
+
+    grid.innerHTML=liste.length
+        ?liste.map(creerCarte).join("")
+        :`<div class="empty">Aucun contenu disponible.</div>`;
+
+}
+
+function retourAccueil(){
+
+    cacherToutesLesPages();
+
+    document.getElementById("homePage").style.display="block";
+
+    document.getElementById("mainHeader").style.display="flex";
+
+    document.getElementById("searchContainer").style.display="block";
+
+    document.getElementById("bottomMenu").style.display="flex";
+
+    actualiserAccueil();
+
+}
+
+/* ===================================
+   COMPTEUR AUTOMATIQUE DES VUES
+=================================== */
+
+function ajouterVue(media){
+
+    if(!media)return;
+
+    compteursVues[media.id]=
+        (Number(compteursVues[media.id])||0)+1;
+
+    sauvegarderVues();
+
+}
+
+/* ===================================
+   LECTEUR
+=================================== */
+
+function ouvrirLecteur(id){
+
+    const media=contenus.find(m=>m.id===id);
+
+    if(media)ouvrirMedia(media);
+
+}
+
+function ouvrirMedia(media){
+
+    pagePrecedente=pageActuelle();
+
+    mediaEnLecture=media;
+
+    // Une vue est ajoutée à chaque lancement du média
+    ajouterVue(media);
+
+    cacherToutesLesPages();
+
+    document.getElementById("watchPage").style.display="block";
+
+    document.getElementById("mainHeader").style.display="none";
+
+    document.getElementById("searchContainer").style.display="none";
+
+    document.getElementById("bottomMenu").style.display="none";
+
+    const video=document.getElementById("mainVideo");
+    const audio=document.getElementById("mainAudio");
+    const audioArea=document.getElementById("audioArea");
+
+    video.pause();
+    audio.pause();
+
+    video.removeAttribute("src");
+    audio.removeAttribute("src");
+
+    video.style.display="none";
+    audioArea.style.display="none";
+
+    if(media.type==="Musique"){
+
+        audioArea.style.display="block";
+
+        document.getElementById("mainAudioCover").src=media.image;
+
+        audio.src=media.fichier;
+
+        audio.load();
+
+    }else{
+
+        video.style.display="block";
+
+        video.src=media.fichier;
+
+        video.load();
+
+    }
+
+    document.getElementById("watchTitle").textContent=media.titre;
+
+    document.getElementById("watchArtist").textContent=
+        media.artiste+" • "+formaterVues(compteursVues[media.id])+" vues";
+
+    actualiserBoutonFavoriLecture();
+
+    afficherRecommandations(media);
+
+    // Actualiser les compteurs visibles
+    actualiser();
+
+    window.scrollTo(0,0);
+
+}
+
+function pageActuelle(){
+
+    const pages=["favoritesPage","downloadsPage","artistPage"];
+
+    for(const id of pages){
+
+        if(document.getElementById(id).style.display==="block"){
+            return id;
+        }
+
+    }
+
+    return "homePage";
+
+}
+
+function quitterLecture(){
+
+    document.getElementById("mainVideo").pause();
+
+    document.getElementById("mainAudio").pause();
+
+    cacherToutesLesPages();
+
+    document.getElementById("mainHeader").style.display="flex";
+
+    document.getElementById("searchContainer").style.display=
+        pagePrecedente==="homePage"?"block":"none";
+
+    document.getElementById("bottomMenu").style.display="flex";
+
+    document.getElementById(pagePrecedente).style.display="block";
+
+    actualiser();
+
+    if(pagePrecedente==="favoritesPage")afficherFavoris();
+
+    if(pagePrecedente==="downloadsPage")afficherTelechargements();
+
+    window.scrollTo(0,0);
+
+}
+
+/* ===================================
+   RECOMMANDATIONS
+=================================== */
+
+function afficherRecommandations(media){
+
+    const liste=contenus.filter(m=>
+        m.id!==media.id &&
+        (m.type===media.type || m.artisteId===media.artisteId)
+    ).slice(0,6);
+
+    document.getElementById("recommendedList").innerHTML=
+        liste.map(creerCarte).join("");
+
+}
+
+/* ===================================
+   FAVORIS
+=================================== */
+
+function aimer(id){
+
+    if(favoris.includes(id)){
+        favoris=favoris.filter(x=>x!==id);
+    }else{
+        favoris.push(id);
+    }
+
+    localStorage.setItem("cinemusic_favoris",JSON.stringify(favoris));
+
+    actualiser();
+
+    afficherFavoris();
+
+    actualiserBoutonFavoriLecture();
+
+}
+
+function aimerMediaEnLecture(){
+
+    if(mediaEnLecture)aimer(mediaEnLecture.id);
+
+}
+
+function actualiserBoutonFavoriLecture(){
+
+    if(!mediaEnLecture)return;
+
+    document.getElementById("watchLike").textContent=
+        favoris.includes(mediaEnLecture.id)?"♥ J'aime":"♡ J'aime";
+
+}
+
+function afficherFavoris(){
+
+    const liste=contenus.filter(m=>favoris.includes(m.id));
+
+    document.getElementById("favoritesGrid").innerHTML=
+        liste.length?liste.map(creerCarte).join("")
+        :`<div class="empty">Aucun favori pour le moment.</div>`;
+
+}
+
+/* ===================================
+   TÉLÉCHARGEMENTS
+=================================== */
+
+function telecharger(id){
+
+    const media=contenus.find(m=>m.id===id);
+
+    if(!media)return;
+
+    if(!telechargements.includes(id)){
+
+        telechargements.push(id);
+
+        localStorage.setItem(
+            "cinemusic_telechargements",
+            JSON.stringify(telechargements)
+        );
+
+    }
+
+    const lien=document.createElement("a");
+
+    lien.href=media.fichier;
+
+    lien.download=media.fichier.split("/").pop();
+
+    document.body.appendChild(lien);
+
+    lien.click();
+
+    lien.remove();
+
+    actualiser();
+
+    alert("Demande de téléchargement envoyée.");
+
+}
+
+function telechargerMediaEnLecture(){
+
+    if(mediaEnLecture)telecharger(mediaEnLecture.id);
+
+}
+
+function afficherTelechargements(){
+
+    const liste=contenus.filter(m=>telechargements.includes(m.id));
+
+    document.getElementById("downloadsGrid").innerHTML=
+        liste.length?liste.map(creerCarte).join("")
+        :`<div class="empty">Aucun téléchargement enregistré.</div>`;
+
+}
+
+/* ===================================
+   PARTAGE
+=================================== */
+
+function partagerMedia(){
+
+    if(!mediaEnLecture)return;
+
+    const texte=mediaEnLecture.titre+" - "+mediaEnLecture.artiste;
+
+    if(navigator.share){
+
+        navigator.share({
+            title:"CINÉMUSIC PRO",
+            text:texte,
+            url:location.href
+        });
+
+    }else{
+
+        alert(texte);
+
+    }
+
+}
+
+/* ===================================
+   RECHERCHE
+=================================== */
+
+function rechercher(){
+
+    const recherche=document.getElementById("searchInput").value.toLowerCase().trim();
+
+    if(!recherche){
+
+        actualiserAccueil();
+
+        return;
+
+    }
+
+    cacherToutesLesPages();
+
+    document.getElementById("homePage").style.display="block";
+
+    const liste=contenus.filter(m=>
+        m.titre.toLowerCase().includes(recherche)||
+        m.artiste.toLowerCase().includes(recherche)||
+        m.type.toLowerCase().includes(recherche)
+    );
+
+    afficherContenus(liste);
+
+    window.scrollTo(0,0);
+
+}
+
+/* ===================================
+   NAVIGATION
+=================================== */
+
+function cacherToutesLesPages(){
+
+    ["homePage","artistPage","watchPage","favoritesPage","downloadsPage"]
+    .forEach(id=>{
+        document.getElementById(id).style.display="none";
+    });
+
+}
+
+function ouvrirPage(pageId,button){
+
+    document.getElementById("mainVideo").pause();
+
+    document.getElementById("mainAudio").pause();
+
+    cacherToutesLesPages();
+
+    document.getElementById(pageId).style.display="block";
+
+    document.getElementById("mainHeader").style.display="flex";
+
+    document.getElementById("searchContainer").style.display=
+        pageId==="homePage"?"block":"none";
+
+    document.getElementById("bottomMenu").style.display="flex";
+
+    document.querySelectorAll(".bottom-menu button").forEach(b=>{
+        b.classList.remove("active");
+    });
+
+    if(button)button.classList.add("active");
+
+    if(pageId==="homePage")actualiserAccueil();
+
+    if(pageId==="favoritesPage")afficherFavoris();
+
+    if(pageId==="downloadsPage")afficherTelechargements();
+
+    window.scrollTo(0,0);
+
+}
+
+/* ===================================
+   ACTUALISATION
+=================================== */
+
+function actualiser(){
+
+    actualiserAccueil();
+
+    afficherFavoris();
+
+    afficherTelechargements();
+
+}
+
+/* ===================================
+   DÉMARRAGE
+=================================== */
+
+afficherFondArtistes();
+
+afficherArtistes();
+
+actualiserAccueil();
+
+</script>
+
+</body>
+</html>
